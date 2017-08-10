@@ -22,31 +22,31 @@ public class Connection extends Thread {
         this.socket = socket;
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(),true);
-        }catch (IOException e){
+            out = new PrintWriter(socket.getOutputStream(), true);
+        } catch (IOException e) {
             e.printStackTrace();
 
         }
     }
+
     public void run() {
         try {
             name = in.readLine();
 
-            for(Connection c : connections) {
+            for (Connection c : connections) {
                 c.out.println(name + " присоединился к чату");
             }
-
             String str = "";
             while (true) {
                 str = in.readLine();
-                if(str.equals("exit")) break;
+                if (str.equals("exit")) break;
 
-                for(Connection c : connections) {
+                for (Connection c : connections) {
                     c.out.println(name + ": " + str);
                 }
             }
 
-            for(Connection c : connections) {
+            for (Connection c : connections) {
                 c.out.println(name + " покинул чат.");
 
             }

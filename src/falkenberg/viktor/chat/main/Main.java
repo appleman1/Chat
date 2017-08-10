@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Запустить программу в режиме сервера или клиента? (S (Server) / C (Client))");
         try {
@@ -26,7 +26,7 @@ public class Main {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 reader.close();
             } catch (IOException e) {

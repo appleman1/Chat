@@ -10,11 +10,14 @@ import java.net.Socket;
 
 public class Client {
     private BufferedReader reader;
+    private String name;
     private String ip;
     private Socket clientSocket;
     protected static BufferedReader in;
     protected static PrintWriter out;
     private String stringToServer = "";
+    private MessagesToConsole messagesToConsole;
+
     public Client() throws IOException {
         reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Введите IP адрес для подключения к серверу.");
@@ -27,23 +30,29 @@ public class Client {
         clientSocket = new Socket(ip, Config.PORT);
         try {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            out = new PrintWriter(clientSocket.getOutputStream(),true);
-        }catch (Exception e){
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.print("Введите свой ник: ");
-        out.println(reader.readLine());
-        MessagesFromServer messagesFromServer = new MessagesFromServer();
-        messagesFromServer.start();
-        try {
-        while (!"exit".equals(stringToServer)){
-            stringToServer = reader.readLine();
-            out.println(stringToServer);
-        }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
+        name = reader.readLine();
+        out.println(name);
 
+        messagesToConsole = new MessagesToConsole();
+        messagesToConsole.start();
+        System.out.println(name + " " + Config.HELLO_MESSAGE);
+        try {
+            while (!"exit".equals(stringToServer)) {
+                stringToServer = reader.readLine();
+                out.println(stringToServer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            messagesToConsole.setStoped(true);
+            in.close();
+            out.close();
+            clientSocket.close();
         }
 
     }

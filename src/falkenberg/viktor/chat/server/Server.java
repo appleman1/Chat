@@ -8,6 +8,7 @@ import java.net.Socket;
 
 public class Server {
     private ServerSocket server;
+
     public Server() throws IOException {
         try {
             server = new ServerSocket(Config.PORT);
@@ -18,6 +19,7 @@ public class Server {
                 Connection con = new Connection(socket);
                 Connection.getConnections().add(con);
                 con.start();
+                System.out.println("+1 клиент");
 
             }
         } catch (IOException e) {

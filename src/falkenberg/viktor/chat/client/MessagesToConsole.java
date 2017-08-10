@@ -2,7 +2,7 @@ package falkenberg.viktor.chat.client;
 
 import java.io.IOException;
 
-public class MessagesFromServer extends Thread{
+public class MessagesToConsole extends Thread {
     private boolean stoped = false;
 
     public void setStoped(boolean stoped) {
@@ -11,7 +11,7 @@ public class MessagesFromServer extends Thread{
 
 
     @Override
-    public void run(){
+    public void run() {
         try {
             while (!stoped) {
                 String str = Client.in.readLine();
