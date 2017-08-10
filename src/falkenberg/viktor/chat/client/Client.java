@@ -33,11 +33,18 @@ public class Client {
         }
         System.out.print("Введите свой ник: ");
         out.println(reader.readLine());
-        while ("exit".equals(stringToServer)){
+        MessagesFromServer messagesFromServer = new MessagesFromServer();
+        messagesFromServer.start();
+        try {
+        while (!"exit".equals(stringToServer)){
             stringToServer = reader.readLine();
             out.println(stringToServer);
         }
-        MessagesFromServer messagesFromServer = new MessagesFromServer();
-        messagesFromServer.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+
+        }
+
     }
 }

@@ -12,7 +12,7 @@ public class Connection extends Thread {
     private PrintWriter out;
     private String name = "";
     private Socket socket;
-    private static ArrayList<Connection> connections;
+    private static ArrayList<Connection> connections = new ArrayList<>();
 
     public static ArrayList<Connection> getConnections() {
         return connections;
@@ -26,9 +26,6 @@ public class Connection extends Thread {
         }catch (IOException e){
             e.printStackTrace();
 
-        }finally {
-            in.close();
-            out.close();
         }
     }
     public void run() {
@@ -36,7 +33,7 @@ public class Connection extends Thread {
             name = in.readLine();
 
             for(Connection c : connections) {
-                c.out.println(name + " cames now");
+                c.out.println(name + " присоединился к чату");
             }
 
             String str = "";
@@ -50,7 +47,8 @@ public class Connection extends Thread {
             }
 
             for(Connection c : connections) {
-                c.out.println(name + " has left.");
+                c.out.println(name + " покинул чат.");
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,6 +56,7 @@ public class Connection extends Thread {
             try {
                 in.close();
                 out.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

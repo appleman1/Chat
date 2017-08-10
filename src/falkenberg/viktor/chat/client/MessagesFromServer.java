@@ -3,10 +3,12 @@ package falkenberg.viktor.chat.client;
 import java.io.IOException;
 
 public class MessagesFromServer extends Thread{
-    private boolean stoped;
-    public void setStoped(){
-        stoped = true;
+    private boolean stoped = false;
+
+    public void setStoped(boolean stoped) {
+        this.stoped = stoped;
     }
+
 
     @Override
     public void run(){
